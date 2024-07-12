@@ -49,12 +49,56 @@
 	h1, h2, h3, h4, h5, h6{
 		font-family: 'Grenze Gotisch', serif;
 	}
+
+
+	        /* CSS untuk overlay loading */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Warna hitam transparan */
+            z-index: 9999; /* Meletakkan di atas elemen lain */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Mulai dengan opacity 0 */
+            visibility: hidden; /* Mulai dengan visibility hidden */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .loader.active {
+            opacity: 1; /* Menampilkan overlay */
+            visibility: visible; /* Menampilkan overlay */
+        }
+
+        .loader__spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3); /* Warna border transparan */
+            border-top: 4px solid #ffffff; /* Warna border putih */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite; /* Animasi putar */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+		
 	</style>
 
 </head>
 
 
 <body style="background:#eeeeee;">
+
+	    <!-- Overlay loading -->
+    <div class="loader" id="loader">
+        <div class="loader__spinner"></div>
+    </div>
 	
 	<div class="container">
 	
@@ -556,5 +600,21 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
+	    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+
+            // Tampilkan overlay loading
+            loader.classList.add('active');
+
+            // Semua konten halaman dimuat
+            window.addEventListener('load', function() {
+                // Sembunyikan overlay loading setelah halaman terisi penuh
+                loader.classList.remove('active');
+            });
+        });
+    </script>
+
+	
 </body>
 </html>
